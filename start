@@ -4,7 +4,7 @@ set -e
 SESSIONS_DIR="/var/www/html/.sessions"
 
 # Create .sessions dir if it doesn't exists
-if [ ! -d "SESSIONS_DIR" ]; then
+if [ ! -d "$SESSIONS_DIR" ]; then
     mkdir "$SESSIONS_DIR"
     chown www-data:www-data "$SESSIONS_DIR"
 
