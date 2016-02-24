@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+SESSIONS_DIR="/var/www/html/.sessions"
+
+# Create .sessions dir if it doesn't exists
+if [ ! -d "SESSIONS_DIR" ]; then
+    mkdir "$SESSIONS_DIR"
+    chown www-data:www-data "$SESSIONS_DIR"
+
+    # www-data cannot delete the .sessions folder
+    mkdir "$SESSIONS_DIR/.keep"
+    chmod 700 "$SESSIONS_DIR/.keep"
+    touch "$SESSIONS_DIR/.keep/.keep"
+    chmod 600 "$SESSIONS_DIR/.keep/.keep"
+fi
+
+# Execute original script
+apache2-foreground
