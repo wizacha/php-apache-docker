@@ -15,5 +15,11 @@ if [ ! -d "$SESSIONS_DIR" ]; then
     chmod 600 "$SESSIONS_DIR/.keep/.keep"
 fi
 
+# Custom apache config
+DOCUMENT_ROOT=`grep -oP 'DocumentRoot=\K(.+)' /var/www/html/.hosting_config || true`
+if [ ! -z "$DOCUMENT_ROOT" ]; then
+    echo "DocumentRoot \"/var/www/html/$DOCUMENT_ROOT\"" >> /etc/apache2/conf-available/custom-config.conf
+fi
+
 # Execute original script
 apache2-foreground
