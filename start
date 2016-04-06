@@ -16,7 +16,7 @@ if [ ! -d "$SESSIONS_DIR" ]; then
 fi
 
 # Custom apache config
-DOCUMENT_ROOT=`grep -oP 'DocumentRoot=\K(.+)' /var/www/html/.hosting_config || true`
+DOCUMENT_ROOT=`grep -oP 'DocumentRoot=\K(.+)' /var/www/html/.hosting_config || true`
 if [ ! -z "$DOCUMENT_ROOT" ]; then
     echo "DocumentRoot \"/var/www/html/$DOCUMENT_ROOT\"" >> /etc/apache2/conf-available/custom-config.conf
 fi
