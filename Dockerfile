@@ -13,6 +13,6 @@ RUN apt-get update && apt-get install -y \
 COPY php.ini /usr/local/etc/php/
 COPY custom-config.conf /etc/apache2/conf-available/
 RUN a2enconf custom-config
-RUN a2enmod rewrite
+RUN a2enmod rewrite alias
 COPY start /usr/local/bin/
 CMD ["start"]

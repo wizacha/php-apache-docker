@@ -20,6 +20,14 @@ DOCUMENT_ROOT=`grep -oP 'DocumentRoot=\K(.+)' /var/www/html/.hosting_config || t
 if [ ! -z "$DOCUMENT_ROOT" ]; then
     echo "DocumentRoot \"/var/www/html/$DOCUMENT_ROOT\"" >> /etc/apache2/conf-available/custom-config.conf
 fi
+URL_PREFIX=`grep -oP 'UrlPrefix=\K(.+)' /var/www/html/.hosting_config || true`
+if [ ! -z "$URL_PREFIX" ]; then
+    if [ ! -z "$DOCUMENT_ROOT" ]; then
+        echo "Alias \"$URL_PREFIX\" \"/var/www/html/$DOCUMENT_ROOT\"" >> /etc/apache2/conf-available/custom-config.conf
+    else
+        echo "Alias \"$URL_PREFIX\" \"/var/www/html\"" >> /etc/apache2/conf-available/custom-config.conf
+    fi
+fi
 
 # Execute original script
 apache2-foreground
